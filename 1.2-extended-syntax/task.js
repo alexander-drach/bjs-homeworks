@@ -33,17 +33,15 @@ function getAverageMark(marks){
     
     for (let i = 0; i < marks.length; i++) {
         sum += marks[i];
-        averageMark = sum / marks.length;
     }
-    return averageMark;
+    
+    return sum / marks.length;
 }
 
-function askDrink(name,dateOfBirthday){   
-    let result = '';
-    if (new Date().getFullYear() - dateOfBirthday.getFullYear()) {
-        result = `Не желаете ли олд-фэшн, ${name}?`
+function askDrink(name,dateOfBirthday){ 
+    if ( (new Date().getFullYear() - dateOfBirthday.getFullYear()) > 18) {
+        return `Не желаете ли олд-фэшн, ${name}?`;
     }else {
-        result = `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`
+        return `Сожалею, ${name}, но я не могу вам продать алкоголь. Зато могу предложить вам замечательный клюквенный компот!`;
     }
-    return result;
 }
