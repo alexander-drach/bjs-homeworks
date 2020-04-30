@@ -2,20 +2,24 @@
 function calculateTotalMortgage(percent, contribution, amount, date) {       
     // код для задачи №1 писать здесь
 
-    if ( percent.isNaN ) {
+    if ( isNaN(percent) ) {
         return `Параметр "percent" содержит неправильное значение ${percent}`;
     }
-    if ( contribution.isNaN ) {
+    if ( isNaN(contribution) ) {
         return `Параметр "contribution" содержит неправильное значение ${contribution}`;
     }
-    if ( amount.isNaN ) {
+    if ( isNaN(amount) ) {
         return `Параметр "amount" содержит неправильное значение ${amount}`;
     }
-    if ( date.isNaN ) {
+    if ( isNaN(date) ) {
         return `Параметр "percent" содержит неправильное значение ${date}`;
     }
-    
-    percent /= 100; 
+
+    percent = parseFloat(percent / 100);
+    contribution = parseFloat(contribution);
+    amount = parseFloat(amount);
+    date = new Date(date);
+
     let P = percent / 12;
     let months = (date.getFullYear() - new Date().getFullYear()) * 12;
     let S = (amount - contribution);
@@ -27,9 +31,5 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
 
 function getGreeting(name) {
     // код для задачи №2 писать здесь
-    if ( !name ) {
-        name = 'Аноним';
-    }
-
-    return `Привет, мир! Меня зовут ${name}`;
+    return `Привет, мир! Меня зовут ${name || "Аноним"}`;
 }
