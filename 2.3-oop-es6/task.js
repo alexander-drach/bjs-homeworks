@@ -215,42 +215,60 @@ class StudentLog {
     }
 
     addGrade(grade, subject) {
-        this.data[subject] = subject;
+        if (!(subject in this.data)) {
+            this.data[subject] = [];
+        }
         if ( (typeof grade !== 'number') || grade < 1 || grade > 5) {
             console.log(`Вы пытались поставить оценку ${grade} по предмету ${subject}. Допускаются только числа от 1 до 5`);
         } else {
-            if (subject in this.data) {
-                this.data.subject = [];
-            }
-            this.data.subject.push(grade);
-        }
-        
-        return this.data.subject.length;                       
+            this.data[subject].push(grade); 
+        } 
+        return this.data[subject].length;         
     }
 
     getAverageBySubject(subject) {
-
+        if ( !(subject in this.data) ) {
+            return 0;
+        }
+        let sum = 0;
+        let arrLength = this.data[subject].length;
+        for(let i = 0; i < arrLength; i++) {
+            sum += this.data[subject][i];
+        }
+        return sum / arrLength;
     }
 
     getTotalAverage() {
+        let objectLength = Object.keys(this.data).length;
 
+        if (objectLength === 0) {
+            return 0;
+        }
+
+        let sum = 0;
+
+        for(let item in this.data) {
+            sum += this.getAverageBySubject(item);
+        }        
+
+        return sum / objectLength;
     }
 }
 
 
-
+/*
 const log = new StudentLog('Олег Никифоров');
 
 console.log(log.addGrade(3, 'algebra'));
 // 1
-console.log(log.data)
+
 console.log(log.addGrade('отлично!', 'math'));
 // Вы пытались поставить оценку "отлично!" по предмету "math". Допускаются только числа от 1 до 5.
 // 0
 
 
-console.log(log.addGrade(4, 'algebra'));
-// 1
+console.log(log.addGrade(4, 'algebra'));console.log(log.data)
+// 2
 
 console.log(log.addGrade(5, 'geometry'));
 // 1
@@ -258,3 +276,14 @@ console.log(log.addGrade(5, 'geometry'));
 console.log(log.addGrade(25, 'geometry'));
 // Вы пытались поставить оценку "25" по предмету "geometry". Допускаются только числа от 1 до 5.
 // 1
+
+*/
+
+const log = new StudentLog('Олег Никифоров');
+
+log.addGrade(2, 'algebra');
+log.addGrade(4, 'algebra');
+log.addGrade(5, 'geometry');
+log.addGrade(4, 'geometry');
+
+console.log(log.getTotalAverage()); // 3,75
