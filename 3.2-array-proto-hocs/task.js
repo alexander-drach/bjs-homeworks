@@ -6,7 +6,7 @@ function sleep(milliseconds)
 
 function sum(...args) {
     // Замедление на половину секунды.
-    sleep(500); // Можно использовать другое значение замедления.
+    //sleep(500); // Можно использовать другое значение замедления.
     return args.reduce((sum, arg) => {
       return sum += +arg;
     }, 0);
@@ -60,4 +60,4 @@ function testCase(testFunction, timerName) {
 }
 
 testCase(sum, 'timer_1')
-testCase(memorize(sum), 'timer_2')
+testCase(memorize(sum, 5), 'timer_2')
