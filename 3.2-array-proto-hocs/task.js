@@ -6,7 +6,7 @@ function sleep(milliseconds)
 
 function sum(...args) {
     // Замедление на половину секунды.
-    //sleep(500); // Можно использовать другое значение замедления.
+    sleep(100); // Можно использовать другое значение замедления.
     return args.reduce((sum, arg) => {
       return sum += +arg;
     }, 0);
@@ -16,7 +16,7 @@ function compareArrays( arr1, arr2 ) {
     if(arr1.length !== arr2.length) {
         return false;
     }
-    return arr1.every( i => arr1[i] === arr2[i]);
+    return arr1.every( (value, i, array) => arr1[i] === arr2[i]);
 }
 
 /*
@@ -37,9 +37,9 @@ function memorize(fn, limit) {
 
         if( resultOfFind ) {
             return resultOfFind.result;
-        }else {
-            memory.push( {args: args, result: fn(...args)} );
         }
+        
+        memory.push( {args: args, result: fn(...args)} );
 
         if(memory.length > limit) {
             memory.shift();
